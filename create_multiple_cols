@@ -1,0 +1,10 @@
+# Example of how to create multiple new columns from a df in only one apply operation.
+
+def create_multiple_cols(row):
+    start = row['col'].split()[0]
+    end = row['col'].split()[1]
+    row['start'] = start
+    row['end'] = end
+    return row
+
+df = df.apply(lambda row: create_multiple_cols(x), axis=1)
