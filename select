@@ -1,0 +1,9 @@
+# Select a slice that follow some conditions
+df_slice = df.loc[(df_demult['A'] == val_a) & (df_demult['B'] >= val_b) & (df_demult['C'] <= val_c)]
+
+# Create a mask that follow some conditions
+mask = (df_demult['A'] == val_a) & (df_demult['B'] >= val_b) & (df_demult['C'] <= val_c)
+df_slice[mask]
+
+# Change the value of a column that follow some conditions
+df['col_to_change'].loc[(df_demult['A'] == val_a) & (df_demult['B'] >= val_b) & (df_demult['C'] <= val_c)] = "NEW_VALUE"
