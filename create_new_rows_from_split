@@ -1,0 +1,30 @@
+# Copied from: https://stackoverflow.com/questions/43794429/python-how-to-split-cell-in-a-column-to-a-new-row-based-of-a-delmimeter
+
+Setup
+
+df = pd.DataFrame({'COL_A': {0: 'Hello ', 1: 'New   '},
+ 'COL_B': {0: ' World ', 1: ' line  '},
+ 'COL_C': {0: ' Hi#123;move', 1: ' Can.I#parse;this.data '}})
+Out[480]: 
+    COL_A    COL_B                    COL_C
+0  Hello    World               Hi#123;move
+1  New      line     Can.I#parse;this.data 
+
+Solution
+
+#split COL_C by given delimeter and stack them up in a series
+COL_C2 = df.COL_C.str.split('\.|;|#',expand=True).stack()
+#join the new series (after setting a name and index) back to the dataframe
+df.join(pd.Series(index=COL_C2.index.droplevel(1), data=COL_C2.values, name='COL_C2'))
+
+Out[475]: 
+    COL_A    COL_B                    COL_C COL_C2
+0  Hello    World               Hi#123;move     Hi
+0  Hello    World               Hi#123;move    123
+0  Hello    World               Hi#123;move   move
+1  New      line     Can.I#parse;this.data     Can
+1  New      line     Can.I#parse;this.data       I
+1  New      line     Can.I#parse;this.data   parse
+1  New      line     Can.I#parse;this.data    this
+1  New      line     Can.I#parse;this.data   data 
+
