@@ -16,4 +16,8 @@ def _create_new_cols(row):
 
 df = df.apply(lambda row: _create_new_cols(x), axis=1)
 
+# Solution for splitting values into new columns
+df[["new_col1","new_col2"]] = df["col_to_split"].str.split(pat=":", expand=True)
+
+
 
