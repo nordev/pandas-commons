@@ -1,0 +1,19 @@
+# Example of how to create multiple new columns from a df in only one apply operation.
+
+# Fast solution
+def _return_serie_create_new_cols(row):
+    # Do something...
+    # It works also with a new dict instead of a list
+    return pd.Series(["new_val1", "new_val2"])
+
+df[["new_col1","new_col2"]] = df.apply(lambda row: _return_serie_create_new_cols(row, gt_col_name), axis=1)
+
+# Slow solution
+def _create_new_cols(row):
+    row['start'] = "val_start"
+    row['end'] = "val_end"
+    return row
+
+df = df.apply(lambda row: _create_new_cols(x), axis=1)
+
+
