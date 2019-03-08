@@ -1,0 +1,12 @@
+"""Create a df from a list of values and make it multi index 
+it makes the trick for reset the multiindex and make the new rows"""
+ 
+# Create new df from old df
+df = pd.DataFrame(df_arr_as_list["arr_to_split"].to_list(),
+                                index=pml_stg_plan["id_col"])
+# Make it multiindex
+df_multi_index = df.stack()
+df_no_multi_index = df_row_splitted.reset_index()[[0, 'id_col']]
+df_no_multi_index.rename(columns={0: "arr_to_split"}, inplace=True)
+
+# Make a merge with origin dataframe
